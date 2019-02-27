@@ -956,7 +956,7 @@ int64_t GetProofOfWorkReward(unsigned int nBits)
 // peercoin: miner's coin stake is rewarded based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge)
 {
-    static int64_t nRewardCoinYear = CENT;  // creation amount per coin-year
+    static int64_t nRewardCoinYear = 500 * CENT;  // creation amount per coin-year
     int64_t nSubsidy = nCoinAge * 33 / (365 * 33 + 8) * nRewardCoinYear;
     if (gArgs.GetBoolArg("-printcreation", false))
         LogPrintf("%s: create=%s nCoinAge=%lld\n", __func__, FormatMoney(nSubsidy), nCoinAge);

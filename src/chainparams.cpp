@@ -115,15 +115,11 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("00000b8ada156793cd495e09bff9c662226ed3ed3784635295c084f7242b46df"));
         assert(genesis.hashMerkleRoot == uint256S("ff8892d29487de48caf88c622e688078a6d1268245de17248c0b1377737da38c"));
 
-        // vSeeds.emplace_back("");
-
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,51);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,26);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,179);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
-
-        bech32_hrp = "bc";
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
@@ -134,7 +130,14 @@ public:
 
         checkpointData = {
             {
-                {     0, uint256S("00000b8ada156793cd495e09bff9c662226ed3ed3784635295c084f7242b46df")},
+                {      0, uint256S("00000b8ada156793cd495e09bff9c662226ed3ed3784635295c084f7242b46df")},
+                {  50000, uint256S("5ad69c1eb198a2a3d1b83e97a76dd44832154c9ad99d7acf05f38d18616d8d42")},
+                { 100000, uint256S("000000000005740e6a917a0e0bc85f0cb4b1c2b9cdc3dd5d2539ffc64f97efa3")},
+                { 150000, uint256S("4fea8db19de3bf5f76bd95540a1de6e658076dbe87127efe0c48d70bbd800f55")},
+                { 200000, uint256S("6b90b686ee68fb6a668e3790e5585d1917cec4c0f4269f0423ce96f33fe63f86")},
+                { 300000, uint256S("65e14399cebb7100e41c6580d7840cf872f449410a842237e84c4d4c3ce7265e")},
+                { 400000, uint256S("eb33b21d49e019ff172d3ba0ff5d5dddfb65f45cd82fd5a3fecbdfd1b3cce66d")},
+                { 500000, uint256S("09e192015318d2a0c926f69a76db59c94f2b923be4695cd468cf03fe3997c277")}
             }
         };
 
