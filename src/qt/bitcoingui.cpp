@@ -144,10 +144,6 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     windowTitle += " " + networkStyle->getTitleAddText();
 
     QFontDatabase::addApplicationFont(":/fonts/notosans-regular");
-    QFile styleFile(":/themes/default");
-    styleFile.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(styleFile.readAll());
-    this->setStyleSheet(styleSheet);
 
 #ifndef Q_OS_MAC
     QApplication::setWindowIcon(networkStyle->getTrayAndWindowIcon());
@@ -325,9 +321,9 @@ void BitcoinGUI::createActions()
     mintingAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(mintingAction);
 
-    multisigAction = new QAction(QIcon(":/icons/multisig"), tr("&Multisig"), this);
-    multisigAction->setStatusTip(tr("UI to create multisig addresses"));
-    tabGroup->addAction(multisigAction);
+//  multisigAction = new QAction(QIcon(":/icons/multisig"), tr("&Multisig"), this);
+//  multisigAction->setStatusTip(tr("UI to create multisig addresses"));
+//  tabGroup->addAction(multisigAction);
 
 #ifdef ENABLE_WALLET
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
@@ -346,8 +342,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(mintingAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(mintingAction, SIGNAL(triggered()), this, SLOT(gotoMintingPage()));
-    connect(multisigAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(multisigAction, SIGNAL(triggered()), this, SLOT(gotoMultisigPage()));
+//  connect(multisigAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+//  connect(multisigAction, SIGNAL(triggered()), this, SLOT(gotoMultisigPage()));
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
@@ -400,12 +396,6 @@ void BitcoinGUI::createActions()
     showHelpMessageAction->setMenuRole(QAction::NoRole);
     showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible TurboStake command-line options").arg(tr(PACKAGE_NAME)));
 
-    openChatroomAction = new QAction(QIcon(":/icons/turbostake"), tr("&Chatroom"), this);
-    openChatroomAction->setStatusTip(tr("Open https://turbostake.chat in a web browser."));
-
-    openForumAction = new QAction(QIcon(":/icons/turbostake"), tr("&Forum"), this);
-    openForumAction->setStatusTip(tr("Open https://talk.turbostake.net in a web browser."));
-
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -415,9 +405,6 @@ void BitcoinGUI::createActions()
     connect(openRPCConsoleAction, SIGNAL(triggered()), this, SLOT(showDebugWindow()));
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, SIGNAL(triggered()), rpcConsole, SLOT(hide()));
-
-    connect(openChatroomAction, SIGNAL(triggered()), this, SLOT(openChatroom()));
-    connect(openForumAction, SIGNAL(triggered()), this, SLOT(openForum()));
 
 #ifdef ENABLE_WALLET
     if(walletFrame)
@@ -456,7 +443,7 @@ void BitcoinGUI::createMenuBar()
         file->addAction(backupWalletAction);
         file->addAction(signMessageAction);
         file->addAction(verifyMessageAction);
-        file->addAction(multisigAction);
+//      file->addAction(multisigAction);
         file->addSeparator();
         file->addAction(usedSendingAddressesAction);
         file->addAction(usedReceivingAddressesAction);
@@ -478,8 +465,6 @@ void BitcoinGUI::createMenuBar()
     if(walletFrame)
     {
         help->addAction(openRPCConsoleAction);
-        help->addAction(openChatroomAction);
-        help->addAction(openForumAction);
     }
     help->addAction(showHelpMessageAction);
     help->addSeparator();
@@ -491,13 +476,9 @@ void BitcoinGUI::createToolBars()
 {
     if(walletFrame)
     {
-        QLabel *imageLogo = new QLabel;
-        imageLogo->setPixmap(QPixmap(":/images/logo"));
-        imageLogo->setObjectName("logo");
         QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
         toolbar->setMovable(false);
         toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
-        toolbar->addWidget(imageLogo);
         toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
         toolbar->setMovable(false);
         toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -655,7 +636,7 @@ void BitcoinGUI::createTrayIconMenu()
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(signMessageAction);
     trayIconMenu->addAction(verifyMessageAction);
-    trayIconMenu->addAction(multisigAction);
+//  trayIconMenu->addAction(multisigAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(openRPCConsoleAction);
@@ -736,11 +717,6 @@ void BitcoinGUI::gotoHistoryPage()
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void BitcoinGUI::gotoMultisigPage()
-{
-    if (walletFrame) walletFrame->gotoMultisigPage();
-}
-
 void BitcoinGUI::gotoMintingPage()
 {
     if (walletFrame) walletFrame->gotoMintingPage();
@@ -768,14 +744,6 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
     if (walletFrame) walletFrame->gotoVerifyMessageTab(addr);
 }
 
-void BitcoinGUI::openChatroom() {
-    QDesktopServices::openUrl(QUrl("https://turbostake.chat"));
-}
-
-void BitcoinGUI::openForum() {
-    QDesktopServices::openUrl(QUrl("https://talk.turbostake.net"));
-}
-
 #endif // ENABLE_WALLET
 
 void BitcoinGUI::updateNetworkState()
@@ -785,9 +753,9 @@ void BitcoinGUI::updateNetworkState()
     switch(count)
     {
     case 0: icon = ":/icons/connect_0"; break;
-    case 1: case 2: case 3: icon = ":/icons/connect_1"; break;
-    case 4: case 5: case 6: icon = ":/icons/connect_2"; break;
-    case 7: case 8: case 9: icon = ":/icons/connect_3"; break;
+    case 1: icon = ":/icons/connect_1"; break;
+    case 2: icon = ":/icons/connect_2"; break;
+    case 3: icon = ":/icons/connect_3"; break;
     default: icon = ":/icons/connect_4"; break;
     }
 
