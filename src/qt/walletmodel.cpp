@@ -180,7 +180,7 @@ void WalletModel::updateTransaction()
     // Balance and number of transactions might have changed
     fForceCheckBalanceChanged = true;
 
-//ppcTODO is this steel needed here?
+//trboTODO is this steel needed here?
 // if(mintingTableModel)
 //      mintingTableModel->updateTransaction(hash, status);
 }

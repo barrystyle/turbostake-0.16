@@ -303,7 +303,7 @@ enum ServiceFlags : uint64_t {
  * should be updated appropriately to filter for the same nodes.
  */
 static ServiceFlags GetDesirableServiceFlags(ServiceFlags services) {
-    //ppcTODO - reenable NODE_WITNESS flag in future releases once majority of clients support this
+    //trboTODO - reenable NODE_WITNESS flag in future releases once majority of clients support this
     return ServiceFlags(NODE_NETWORK); // | NODE_WITNESS);
 }
 
@@ -408,7 +408,7 @@ public:
     uint256 hash;
 };
 
-/** peercoin: How much temperature a PoW header will remove */
+/** turbostake: How much temperature a PoW header will remove */
 extern const unsigned int POW_HEADER_COOLING;
 
 #endif // BITCOIN_PROTOCOL_H

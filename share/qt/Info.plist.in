@@ -11,7 +11,7 @@
   </array>
 
   <key>CFBundleIconFile</key>
-  <string>ppcoin.icns</string>
+  <string>trbooin.icns</string>
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Peercoin-Qt</string>
+  <string>TurboStake-Qt</string>
   
   <key>CFBundleName</key>
-  <string>Peercoin-Qt</string>
+  <string>TurboStake-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.peercoin.Peercoin-Qt</string>
+  <string>org.turbostake.TurboStake-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.peercoin.PeercoinPayment</string>
+      <string>org.turbostake.TurboStakePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>peercoin</string>
+        <string>turbostake</string>
       </array>
     </dict>
   </array>
@@ -58,9 +58,9 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.peercoin.paymentrequest</string>
+      <string>org.turbostake.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Peercoin payment request</string>
+      <string>TurboStake payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -68,10 +68,10 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-peercoin-payment-request</string>
+        <string>application/x-turbostake-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>peercoinpaymentrequest</string>
+          <string>turbostakepaymentrequest</string>
         </array>
       </dict>
     </dict>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.peercoin.paymentrequest</string>
+        <string>org.turbostake.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

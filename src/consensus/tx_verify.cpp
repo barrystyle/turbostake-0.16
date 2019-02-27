@@ -176,7 +176,7 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state, bool fChe
     {
         if (txout.IsEmpty() && (!tx.IsCoinBase()) && (!tx.IsCoinStake()))
             return state.DoS(100, false, REJECT_INVALID, "empty-txout");
-        // peercoin: enforce minimum output amount
+        // turbostake: enforce minimum output amount
         // v0.5 protocol: zero amount allowed
 //        if ((!txout.IsEmpty()) && txout.nValue < MIN_TXOUT_AMOUNT &&
 //            !(IsProtocolV05(tx.nTime) && (txout.nValue == 0)))
@@ -236,7 +236,7 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, CValidationState& state, c
                 strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
         }
 
-        // peercoin: check transaction timestamp
+        // turbostake: check transaction timestamp
         if (coin.nTime > tx.nTime)
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-spent-too-early", false, strprintf("%s : transaction timestamp earlier than input transaction", __func__));
 
@@ -249,7 +249,7 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, CValidationState& state, c
 
     if (tx.IsCoinStake())
     {
-        // peercoin: coin stake tx earns reward instead of paying fee
+        // turbostake: coin stake tx earns reward instead of paying fee
         uint64_t nCoinAge;
         if (!GetCoinAge(tx, inputs, nCoinAge))
             return state.DoS(100, false, REJECT_INVALID, "unable to get coin age for coinstake");
@@ -270,7 +270,7 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, CValidationState& state, c
         if (!MoneyRange(txfee_aux)) {
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-fee-outofrange");
         }
-        // peercoin: enforce transaction fees for every block
+        // turbostake: enforce transaction fees for every block
         if (txfee_aux < GetMinFee(tx))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-fee-not-enough");
         txfee = txfee_aux;

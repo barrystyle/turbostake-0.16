@@ -1032,25 +1032,25 @@ case $basic_machine in
 		;;
 	power)	basic_machine=power-ibm
 		;;
-	ppc | ppcbe)	basic_machine=powerpc-unknown
+	trbo | trbobe)	basic_machine=powerpc-unknown
 		;;
-	ppc-* | ppcbe-*)
+	trbo-* | trbobe-*)
 		basic_machine=powerpc-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
-	ppcle | powerpclittle)
+	trbole | powerpclittle)
 		basic_machine=powerpcle-unknown
 		;;
-	ppcle-* | powerpclittle-*)
+	trbole-* | powerpclittle-*)
 		basic_machine=powerpcle-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
-	ppc64)	basic_machine=powerpc64-unknown
+	trbo64)	basic_machine=powerpc64-unknown
 		;;
-	ppc64-*) basic_machine=powerpc64-`echo $basic_machine | sed 's/^[^-]*-//'`
+	trbo64-*) basic_machine=powerpc64-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
-	ppc64le | powerpc64little)
+	trbo64le | powerpc64little)
 		basic_machine=powerpc64le-unknown
 		;;
-	ppc64le-* | powerpc64little-*)
+	trbo64le-* | powerpc64little-*)
 		basic_machine=powerpc64le-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
 	ps2)

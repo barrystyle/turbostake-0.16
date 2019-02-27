@@ -1508,7 +1508,7 @@ void ThreadMapPort()
             }
         }
 
-        std::string strDesc = "Peercoin " + FormatFullVersion();
+        std::string strDesc = "TurboStake " + FormatFullVersion();
 
         try {
             while (true) {

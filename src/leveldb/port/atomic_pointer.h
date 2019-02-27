@@ -37,8 +37,8 @@
 #define ARCH_CPU_ARM_FAMILY 1
 #elif defined(__aarch64__)
 #define ARCH_CPU_ARM64_FAMILY 1
-#elif defined(__ppc__) || defined(__powerpc__) || defined(__powerpc64__)
-#define ARCH_CPU_PPC_FAMILY 1
+#elif defined(__trbo__) || defined(__powerpc__) || defined(__powerpc64__)
+#define ARCH_CPU_TRBO_FAMILY 1
 #elif defined(__mips__)
 #define ARCH_CPU_MIPS_FAMILY 1
 #endif
@@ -127,8 +127,8 @@ inline void MemoryBarrier() {
 }
 #define LEVELDB_HAVE_MEMORY_BARRIER
 
-// PPC
-#elif defined(ARCH_CPU_PPC_FAMILY) && defined(__GNUC__)
+// TRBO
+#elif defined(ARCH_CPU_TRBO_FAMILY) && defined(__GNUC__)
 inline void MemoryBarrier() {
   // TODO for some powerpc expert: is there a cheaper suitable variant?
   // Perhaps by having separate barriers for acquire and release ops.
@@ -237,7 +237,7 @@ class AtomicPointer {
 #undef ARCH_CPU_X86_FAMILY
 #undef ARCH_CPU_ARM_FAMILY
 #undef ARCH_CPU_ARM64_FAMILY
-#undef ARCH_CPU_PPC_FAMILY
+#undef ARCH_CPU_TRBO_FAMILY
 
 }  // namespace port
 }  // namespace leveldb

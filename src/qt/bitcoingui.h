@@ -95,7 +95,7 @@ private:
     QAction *overviewAction;
     QAction *historyAction;
     QAction *mintingAction;
-    QAction *multisigAction;
+//  QAction *multisigAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *sendCoinsMenuAction;
@@ -116,8 +116,6 @@ private:
     QAction *openRPCConsoleAction;
     QAction *openAction;
     QAction *showHelpMessageAction;
-    QAction *openChatroomAction;
-    QAction *openForumAction;
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
@@ -204,7 +202,7 @@ private Q_SLOTS:
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to multisig page */
-    void gotoMultisigPage();
+//  void gotoMultisigPage();
     /** Switch to minting page */
     void gotoMintingPage();
     /** Switch to receive coins page */
@@ -230,10 +228,6 @@ private Q_SLOTS:
     void showDebugWindowActivateConsole();
     /** Show help message dialog */
     void showHelpMessageClicked();
-
-    // Open chatroom / forum URL in the system's browser.
-    void openChatroom();
-    void openForum();
 
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */

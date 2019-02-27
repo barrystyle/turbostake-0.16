@@ -1,6 +1,6 @@
 [Protocol]
-exec=peercoin-qt '%u'
-protocol=peercoin
+exec=turbostake-qt '%u'
+protocol=turbostake
 input=none
 output=none
 helper=true

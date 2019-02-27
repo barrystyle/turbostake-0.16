@@ -86,7 +86,7 @@ enum RPCErrorCode
     RPC_WALLET_NOT_FOUND            = -18, //!< Invalid wallet specified
     RPC_WALLET_NOT_SPECIFIED        = -19, //!< No wallet specified (error when there are multiple wallets loaded)
 
-    //! peercoin
+    //! turbostake
     RPC_INSUFFICIENT_SEND_AMOUNT    = -101, //! Transaction output is below minimum
 };
 

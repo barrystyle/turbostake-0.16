@@ -1,4 +1,4 @@
-// Copyright (c) 2012-2019 The Peercoin developers
+// Copyright (c) 2012-2019 The TurboStake developers
 // Distributed under conditional MIT/X11 software license,
 // see the accompanying file COPYING
 //
@@ -63,13 +63,13 @@
 using namespace std;
 
 
-// ppcoin: sync-checkpoint master key
+// trbooin: sync-checkpoint master key
 const std::string CSyncCheckpoint::strMainPubKey = "0420a39aeecfa0e3c79f7177eff4a873d56deaf8b1052eeb2cade243e6d87ef14c202bafe21289bdf0f14258dc9a13855867ed1b0dea898d2c86a11f1ee9f545c8";
 const std::string CSyncCheckpoint::strTestPubKey = "046cad3d8254b182a4e5289d01d17f0eb687f937648aa025655ed0bcc9dde0b3357e6791d6178d92e37599718e6435532872e751c244e8b096ebe6b6810f1e02aa";
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 
 
-// peercoin: synchronized checkpoint (centrally broadcasted)
+// turbostake: synchronized checkpoint (centrally broadcasted)
 uint256 hashSyncCheckpoint = uint256();
 uint256 hashPendingCheckpoint = uint256();
 CSyncCheckpoint checkpointMessage;
@@ -78,7 +78,7 @@ uint256 hashInvalidCheckpoint = uint256();
 CCriticalSection cs_hashSyncCheckpoint;
 std::string strCheckpointWarning;
 
-// peercoin: get last synchronized checkpoint
+// turbostake: get last synchronized checkpoint
 CBlockIndex* GetLastSyncCheckpoint()
 {
     LOCK(cs_hashSyncCheckpoint);
@@ -89,7 +89,7 @@ CBlockIndex* GetLastSyncCheckpoint()
     return NULL;
 }
 
-// peercoin: only descendant of current sync-checkpoint is allowed
+// turbostake: only descendant of current sync-checkpoint is allowed
 bool ValidateSyncCheckpoint(uint256 hashCheckpoint)
 {
     if (!mapBlockIndex.count(hashSyncCheckpoint))
@@ -172,7 +172,7 @@ bool AcceptPendingSyncCheckpoint()
         CBlockIndex* pindexCheckpoint = mapBlockIndex[hashPendingCheckpoint];
         if (IsSyncCheckpointEnforced() && !chainActive.Contains(pindexCheckpoint))
         {
-            //ppcTODO - redo this somehow
+            //trboTODO - redo this somehow
 //            CValidationState state;
 //            if (!SetBestChain(state, pindexCheckpoint))
 //            {
@@ -213,7 +213,7 @@ bool CheckSyncCheckpoint(const uint256& hashBlock, const CBlockIndex* pindexPrev
    // skip checks during reindex, except for genesis block
    if (pindexPrev->nHeight > 0 && chainActive.Height() == 0) return true;
 
-    //ppcTODO - needs rewrite, because it is very slow during accepting headers
+    //trboTODO - needs rewrite, because it is very slow during accepting headers
     return true;
 //    int nHeight = pindexPrev->nHeight + 1;
 
@@ -239,7 +239,7 @@ bool CheckSyncCheckpoint(const uint256& hashBlock, const CBlockIndex* pindexPrev
 //    return true;
 }
 
-// peercoin: reset synchronized checkpoint to last hardened checkpoint
+// turbostake: reset synchronized checkpoint to last hardened checkpoint
 bool ResetSyncCheckpoint()
 {
     LOCK(cs_hashSyncCheckpoint);
@@ -249,7 +249,7 @@ bool ResetSyncCheckpoint()
         const CBlockIndex* pindex = mapBlockIndex[hash];
         if (!chainActive.Contains(pindex))
         {
-            //ppcTODO - redo this somehow
+            //trboTODO - redo this somehow
 //            // checkpoint block accepted but not yet in main chain
 //            LogPrintf("ResetSyncCheckpoint: SetBestChain to hardened checkpoint %s\n", hash.ToString());
 //            CValidationState state;
@@ -364,7 +364,7 @@ bool IsSyncCheckpointTooOld(unsigned int nSeconds)
     return (pindexSync->GetBlockTime() + nSeconds < GetAdjustedTime());
 }
 
-// peercoin: verify signature of sync-checkpoint message
+// turbostake: verify signature of sync-checkpoint message
 bool CSyncCheckpoint::CheckSignature()
 {
     std::string strMasterPubKey = Params().NetworkIDString() == CBaseChainParams::TESTNET ? CSyncCheckpoint::strTestPubKey : CSyncCheckpoint::strMainPubKey;
@@ -378,7 +378,7 @@ bool CSyncCheckpoint::CheckSignature()
     return true;
 }
 
-// peercoin: process synchronized checkpoint
+// turbostake: process synchronized checkpoint
 bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
 {
     if (!CheckSignature())
@@ -394,7 +394,7 @@ bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
         // Ask this guy to fill in what we're missing
         if (pfrom)
         {
-            //ppcTODO - redo this somehow
+            //trboTODO - redo this somehow
 //            pfrom->PushGetBlocks(pindexBest, hashCheckpoint);
 //            // ask directly as well in case rejected earlier by duplicate
 //            // proof-of-stake because getblocks may not get it this time
@@ -409,7 +409,7 @@ bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
     CBlockIndex* pindexCheckpoint = mapBlockIndex[hashCheckpoint];
     if (IsSyncCheckpointEnforced() && !chainActive.Contains(pindexCheckpoint))
     {
-        //ppcTODO - redo this somehow
+        //trboTODO - redo this somehow
 //        // checkpoint chain received but not yet main chain
 //        CValidationState state;
 //        if (!SetBestChain(state, pindexCheckpoint))

@@ -36,7 +36,7 @@ if ENABLE_ZMQ
 LIBBITCOIN_ZMQ=libbitcoin_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
-LIBBITCOINCONSENSUS=libpeercoinconsensus.la
+LIBBITCOINCONSENSUS=libturbostakeconsensus.la
 endif
 if ENABLE_WALLET
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
@@ -65,11 +65,11 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += peercoind
+  bin_PROGRAMS += turbostaked
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += peercoin-cli peercoin-tx
+  bin_PROGRAMS += turbostake-cli turbostake-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
@@ -171,7 +171,7 @@ BITCOIN_CORE_H = \
   zmq/zmqconfig.h\
   zmq/zmqnotificationinterface.h \
   zmq/zmqpublishnotifier.h \
-## --- ppcoin headers start from this line --- ##
+## --- trbooin headers start from this line --- ##
   kernel.h \
   kernelrecord.h
 
@@ -235,7 +235,7 @@ libbitcoin_zmq_a_SOURCES = \
 endif
 
 
-# wallet: shared between peercoind and peercoin-qt, but only linked
+# wallet: shared between turbostaked and turbostake-qt, but only linked
 # when wallet enabled
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -313,7 +313,7 @@ libbitcoin_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between peercoind, and peercoin-qt and non-server tools
+# common: shared between turbostaked, and turbostake-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
@@ -364,7 +364,7 @@ if GLIBC_BACK_COMPAT
 libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 endif
 
-# cli: shared between peercoin-cli and peercoin-qt
+# cli: shared between turbostake-cli and turbostake-qt
 libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_cli_a_SOURCES = \
@@ -374,17 +374,17 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# peercoind binary #
-peercoind_SOURCES = bitcoind.cpp
-peercoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-peercoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-peercoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# turbostaked binary #
+turbostaked_SOURCES = bitcoind.cpp
+turbostaked_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+turbostaked_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+turbostaked_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-peercoind_SOURCES += bitcoind-res.rc
+turbostaked_SOURCES += bitcoind-res.rc
 endif
 
-peercoind_LDADD = \
+turbostaked_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -398,40 +398,40 @@ peercoind_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-peercoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+turbostaked_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
-# peercoin-cli binary #
-peercoin_cli_SOURCES = bitcoin-cli.cpp
-peercoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-peercoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-peercoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# turbostake-cli binary #
+turbostake_cli_SOURCES = bitcoin-cli.cpp
+turbostake_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+turbostake_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+turbostake_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-peercoin_cli_SOURCES += bitcoin-cli-res.rc
+turbostake_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-peercoin_cli_LDADD = \
+turbostake_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-peercoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+turbostake_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# peercoin-tx binary #
-peercoin_tx_SOURCES = \
+# turbostake-tx binary #
+turbostake_tx_SOURCES = \
   bitcoin-tx.cpp \
   timedatadummy.cpp
-peercoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-peercoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-peercoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+turbostake_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+turbostake_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+turbostake_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-peercoin_tx_SOURCES += bitcoin-tx-res.rc
+turbostake_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-peercoin_tx_LDADD = \
+turbostake_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -439,22 +439,22 @@ peercoin_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-peercoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+turbostake_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
-# peercoinconsensus library #
+# turbostakeconsensus library #
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h
-libpeercoinconsensus_la_SOURCES = $(crypto_libbitcoin_crypto_a_SOURCES) $(libbitcoin_consensus_a_SOURCES)
+libturbostakeconsensus_la_SOURCES = $(crypto_libbitcoin_crypto_a_SOURCES) $(libbitcoin_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libpeercoinconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libturbostakeconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libpeercoinconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libpeercoinconsensus_la_LIBADD = $(LIBSECP256K1)
-libpeercoinconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
-libpeercoinconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libturbostakeconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libturbostakeconsensus_la_LIBADD = $(LIBSECP256K1)
+libturbostakeconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libturbostakeconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #

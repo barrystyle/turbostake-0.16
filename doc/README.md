@@ -1,40 +1,40 @@
-Peercoin Core
+TurboStake Core
 =============
 
 Setup
 ---------------------
-Peercoin Core is the original Peercoin client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Peercoin transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+TurboStake Core is the original TurboStake client and it builds the backbone of the network. It downloads and, by default, stores the entire history of TurboStake transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download Peercoin Core, visit [peercoin.net](https://peercoin.net/download).
+To download TurboStake Core, visit [turbostake.net](https://turbostake.net/download).
 
 Running
 ---------------------
-The following are some helpful notes on how to run Peercoin on your native platform.
+The following are some helpful notes on how to run TurboStake on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/peercoin-qt` (GUI) or
-- `bin/peercoind` (headless)
+- `bin/turbostake-qt` (GUI) or
+- `bin/turbostaked` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run peercoin-qt.exe.
+Unpack the files into a directory, and then run turbostake-qt.exe.
 
 ### OS X
 
-Drag Peercoin-Core to your applications folder, and then run Peercoin-Core.
+Drag TurboStake-Core to your applications folder, and then run TurboStake-Core.
 
 ### Need Help?
 
 * See the documentation at the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Main_Page)
-for help and more information. Peercoin is very similar to bitcoin, so you can use their wiki.
-* Ask for help on [#general](https://peercoin.chat/) on peercoin.chat.
+for help and more information. TurboStake is very similar to bitcoin, so you can use their wiki.
+* Ask for help on [#general](https://turbostake.chat/) on turbostake.chat.
 
 Building
 ---------------------
-The following are developer notes on how to build Peercoin on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build TurboStake on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [Dependencies](dependencies.md)
 - [OS X Build Notes](build-osx.md)
@@ -45,7 +45,7 @@ The following are developer notes on how to build Peercoin on your native platfo
 
 Development
 ---------------------
-The Peercoin repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The TurboStake repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
@@ -61,7 +61,7 @@ The Peercoin repo's [root README](/README.md) contains relevant information on t
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* TODO: add some peercoin resourses
+* TODO: add some turbostake resourses
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

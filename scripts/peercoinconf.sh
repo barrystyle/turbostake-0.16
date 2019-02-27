@@ -1,6 +1,6 @@
 #!/bin/bash -ev
 
-mkdir -p ~/.peercoin
-echo "rpcuser=username" >>~/.peercoin/peercoin.conf
-echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >>~/.peercoin/peercoin.conf
+mkdir -p ~/.turbostake
+echo "rpcuser=username" >>~/.turbostake/turbostake.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >>~/.turbostake/turbostake.conf
 

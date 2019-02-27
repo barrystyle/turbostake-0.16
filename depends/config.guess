@@ -250,7 +250,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
     *:SolidBSD:*:*)
 	echo ${UNAME_MACHINE}-unknown-solidbsd${UNAME_RELEASE}
 	exit ;;
-    macppc:MirBSD:*:*)
+    mactrbo:MirBSD:*:*)
 	echo powerpc-unknown-mirbsd${UNAME_RELEASE}
 	exit ;;
     *:MirBSD:*:*)
@@ -1024,16 +1024,16 @@ EOF
 	  *)    echo hppa-unknown-linux-${LIBC} ;;
 	esac
 	exit ;;
-    ppc64:Linux:*:*)
+    trbo64:Linux:*:*)
 	echo powerpc64-unknown-linux-${LIBC}
 	exit ;;
-    ppc:Linux:*:*)
+    trbo:Linux:*:*)
 	echo powerpc-unknown-linux-${LIBC}
 	exit ;;
-    ppc64le:Linux:*:*)
+    trbo64le:Linux:*:*)
 	echo powerpc64le-unknown-linux-${LIBC}
 	exit ;;
-    ppcle:Linux:*:*)
+    trbole:Linux:*:*)
 	echo powerpcle-unknown-linux-${LIBC}
 	exit ;;
     riscv32:Linux:*:* | riscv64:Linux:*:*)
@@ -1253,10 +1253,10 @@ EOF
 		echo mips-unknown-sysv${UNAME_RELEASE}
 	fi
 	exit ;;
-    BeBox:BeOS:*:*)	# BeOS running on hardware made by Be, PPC only.
+    BeBox:BeOS:*:*)	# BeOS running on hardware made by Be, TRBO only.
 	echo powerpc-be-beos
 	exit ;;
-    BeMac:BeOS:*:*)	# BeOS running on Mac or Mac clone, PPC only.
+    BeMac:BeOS:*:*)	# BeOS running on Mac or Mac clone, TRBO only.
 	echo powerpc-apple-beos
 	exit ;;
     BePC:BeOS:*:*)	# BeOS running on Intel PC compatible.

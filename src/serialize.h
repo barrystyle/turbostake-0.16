@@ -147,7 +147,7 @@ enum
     SER_DISK            = (1 << 1),
     SER_GETHASH         = (1 << 2),
 
-    SER_POSMARKER       = (1 << 18),  // peercoin: for sending block headers with PoS marker, to allow headers-first syncronization
+    SER_POSMARKER       = (1 << 18),  // turbostake: for sending block headers with PoS marker, to allow headers-first syncronization
 };
 
 #define READWRITE(obj)      (::SerReadWrite(s, (obj), ser_action))

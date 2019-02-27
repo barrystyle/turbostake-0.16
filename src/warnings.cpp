@@ -54,11 +54,11 @@ std::string GetWarnings(const std::string& strFor)
         strGUI = _("This is a pre-release test build - use at your own risk - do not use for mining or merchant applications");
     }
 
-    // peercoin: wallet lock warning for minting
+    // turbostake: wallet lock warning for minting
     if (strMintWarning != "")
         strStatusBar = strRPC = strGUI = strMintWarning;
 
-    // peercoin: checkpoint warning
+    // turbostake: checkpoint warning
     // should not enter safe mode for longer invalid chain
     if (strCheckpointWarning != "")
         strStatusBar = strRPC = strGUI = strCheckpointWarning;
@@ -83,7 +83,7 @@ std::string GetWarnings(const std::string& strFor)
         strStatusBar = strRPC = "Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.";
         strGUI += (strGUI.empty() ? "" : uiAlertSeperator) + _("Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.");
     }
-    // peercoin: detect invalid checkpoint
+    // turbostake: detect invalid checkpoint
     if (hashInvalidCheckpoint != uint256())
         strStatusBar = strRPC = strGUI = "WARNING: Inconsistent checkpoint found! Stop enforcing checkpoints and notify developers to resolve the issue.";
 

@@ -1,11 +1,11 @@
-Upstream-Name: Peercoin
-Upstream-Contact: Stichting Peercoin Foundation <foundation@peercoin.net>
-Source: https://github.com/peercoin/peercoin
+Upstream-Name: TurboStake
+Upstream-Contact: Stichting TurboStake Foundation <foundation@turbostake.net>
+Source: https://github.com/turbostake/turbostake
 
 Files: *
-Copyright: 2012-2019, Peercoin Developers
+Copyright: 2012-2019, TurboStake Developers
 License: Expat
-Comment: The Peercoin Developers encompasses the current developers listed on https://github.com/peercoin/peercoin,
+Comment: The TurboStake Developers encompasses the current developers listed on https://github.com/turbostake/turbostake,
          as well as the numerous contributors to the project.
 
 Files: debian/*

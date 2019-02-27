@@ -144,10 +144,6 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     windowTitle += " " + networkStyle->getTitleAddText();
 
     QFontDatabase::addApplicationFont(":/fonts/notosans-regular");
-    QFile styleFile(":/themes/default");
-    styleFile.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(styleFile.readAll());
-    this->setStyleSheet(styleSheet);
 
 #ifndef Q_OS_MAC
     QApplication::setWindowIcon(networkStyle->getTrayAndWindowIcon());
@@ -290,7 +286,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a Peercoin address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a TurboStake address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
@@ -301,7 +297,7 @@ void BitcoinGUI::createActions()
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and peercoin: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and turbostake: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
@@ -325,9 +321,9 @@ void BitcoinGUI::createActions()
     mintingAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(mintingAction);
 
-    multisigAction = new QAction(QIcon(":/icons/multisig"), tr("&Multisig"), this);
-    multisigAction->setStatusTip(tr("UI to create multisig addresses"));
-    tabGroup->addAction(multisigAction);
+//  multisigAction = new QAction(QIcon(":/icons/multisig"), tr("&Multisig"), this);
+//  multisigAction->setStatusTip(tr("UI to create multisig addresses"));
+//  tabGroup->addAction(multisigAction);
 
 #ifdef ENABLE_WALLET
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
@@ -346,8 +342,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(mintingAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(mintingAction, SIGNAL(triggered()), this, SLOT(gotoMintingPage()));
-    connect(multisigAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(multisigAction, SIGNAL(triggered()), this, SLOT(gotoMultisigPage()));
+//  connect(multisigAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+//  connect(multisigAction, SIGNAL(triggered()), this, SLOT(gotoMultisigPage()));
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
@@ -379,9 +375,9 @@ void BitcoinGUI::createActions()
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
     signMessageAction = new QAction(QIcon(":/icons/sign"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your Peercoin addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your TurboStake addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/verify"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Peercoin addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified TurboStake addresses"));
 
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
@@ -394,17 +390,11 @@ void BitcoinGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(QIcon(":/icons/open"), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a peercoin: URI or payment request"));
+    openAction->setStatusTip(tr("Open a turbostake: URI or payment request"));
 
     showHelpMessageAction = new QAction(QIcon(":/icons/info"), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Peercoin command-line options").arg(tr(PACKAGE_NAME)));
-
-    openChatroomAction = new QAction(QIcon(":/icons/peercoin"), tr("&Chatroom"), this);
-    openChatroomAction->setStatusTip(tr("Open https://peercoin.chat in a web browser."));
-
-    openForumAction = new QAction(QIcon(":/icons/peercoin"), tr("&Forum"), this);
-    openForumAction->setStatusTip(tr("Open https://talk.peercoin.net in a web browser."));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible TurboStake command-line options").arg(tr(PACKAGE_NAME)));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -415,9 +405,6 @@ void BitcoinGUI::createActions()
     connect(openRPCConsoleAction, SIGNAL(triggered()), this, SLOT(showDebugWindow()));
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, SIGNAL(triggered()), rpcConsole, SLOT(hide()));
-
-    connect(openChatroomAction, SIGNAL(triggered()), this, SLOT(openChatroom()));
-    connect(openForumAction, SIGNAL(triggered()), this, SLOT(openForum()));
 
 #ifdef ENABLE_WALLET
     if(walletFrame)
@@ -456,7 +443,7 @@ void BitcoinGUI::createMenuBar()
         file->addAction(backupWalletAction);
         file->addAction(signMessageAction);
         file->addAction(verifyMessageAction);
-        file->addAction(multisigAction);
+//      file->addAction(multisigAction);
         file->addSeparator();
         file->addAction(usedSendingAddressesAction);
         file->addAction(usedReceivingAddressesAction);
@@ -478,8 +465,6 @@ void BitcoinGUI::createMenuBar()
     if(walletFrame)
     {
         help->addAction(openRPCConsoleAction);
-        help->addAction(openChatroomAction);
-        help->addAction(openForumAction);
     }
     help->addAction(showHelpMessageAction);
     help->addSeparator();
@@ -491,13 +476,9 @@ void BitcoinGUI::createToolBars()
 {
     if(walletFrame)
     {
-        QLabel *imageLogo = new QLabel;
-        imageLogo->setPixmap(QPixmap(":/images/logo"));
-        imageLogo->setObjectName("logo");
         QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
         toolbar->setMovable(false);
         toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
-        toolbar->addWidget(imageLogo);
         toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
         toolbar->setMovable(false);
         toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -655,7 +636,7 @@ void BitcoinGUI::createTrayIconMenu()
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(signMessageAction);
     trayIconMenu->addAction(verifyMessageAction);
-    trayIconMenu->addAction(multisigAction);
+//  trayIconMenu->addAction(multisigAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(openRPCConsoleAction);
@@ -736,11 +717,6 @@ void BitcoinGUI::gotoHistoryPage()
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void BitcoinGUI::gotoMultisigPage()
-{
-    if (walletFrame) walletFrame->gotoMultisigPage();
-}
-
 void BitcoinGUI::gotoMintingPage()
 {
     if (walletFrame) walletFrame->gotoMintingPage();
@@ -768,14 +744,6 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
     if (walletFrame) walletFrame->gotoVerifyMessageTab(addr);
 }
 
-void BitcoinGUI::openChatroom() {
-    QDesktopServices::openUrl(QUrl("https://peercoin.chat"));
-}
-
-void BitcoinGUI::openForum() {
-    QDesktopServices::openUrl(QUrl("https://talk.peercoin.net"));
-}
-
 #endif // ENABLE_WALLET
 
 void BitcoinGUI::updateNetworkState()
@@ -785,16 +753,16 @@ void BitcoinGUI::updateNetworkState()
     switch(count)
     {
     case 0: icon = ":/icons/connect_0"; break;
-    case 1: case 2: case 3: icon = ":/icons/connect_1"; break;
-    case 4: case 5: case 6: icon = ":/icons/connect_2"; break;
-    case 7: case 8: case 9: icon = ":/icons/connect_3"; break;
+    case 1: icon = ":/icons/connect_1"; break;
+    case 2: icon = ":/icons/connect_2"; break;
+    case 3: icon = ":/icons/connect_3"; break;
     default: icon = ":/icons/connect_4"; break;
     }
 
     QString tooltip;
 
     if (clientModel->getNetworkActive()) {
-        tooltip = tr("%n active connection(s) to Peercoin network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
+        tooltip = tr("%n active connection(s) to TurboStake network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
     } else {
         tooltip = tr("Network activity disabled.") + QString("<br>") + tr("Click to enable network activity again.");
         icon = ":/icons/network_disabled";
@@ -938,7 +906,7 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
 
 void BitcoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("Peercoin"); // default title
+    QString strTitle = tr("TurboStake"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
