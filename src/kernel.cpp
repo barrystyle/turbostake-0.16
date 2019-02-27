@@ -51,6 +51,20 @@ bool IsProtocolV04(unsigned int nTimeBlock)
     return (nTimeBlock >= (Params().NetworkIDString() == CBaseChainParams::TESTNET ? nProtocolV04TestSwitchTime : nProtocolV04SwitchTime));
 }
 
+// Dummy booleans (did not exist at time of legacy client)
+bool IsProtocolV05(unsigned int nTimeTx)
+{
+    return false;
+}
+bool IsProtocolV06(const CBlockIndex* pindexPrev)
+{
+    return false;
+}
+bool IsProtocolV07(unsigned int nTimeTx)
+{
+    return false;
+}
+
 bool IsBTC16BIPsEnabled(uint32_t nTimeTx)
 {
     return nTimeTx >= nBTC16BIPsSwitchTime;
