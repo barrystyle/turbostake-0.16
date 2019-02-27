@@ -47,7 +47,7 @@ struct Params {
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
 
-    /** peercoin stuff */
+    /** turbostake stuff */
     uint256 bnInitialHashTarget;
     int64_t nStakeTargetSpacing;
     int64_t nTargetSpacingWorkMax;

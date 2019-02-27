@@ -514,7 +514,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
 
         // Fee
         nPayFee = GetMinFee(nBytes, GetAdjustedTime());
-        //ppcTODO maybe add this instead?:
+        //trboTODO maybe add this instead?:
         //nPayFee = (fNewFees ? MIN_TX_FEE : MIN_TX_FEE_PREV7);
 
         if (nPayAmount > 0)
@@ -523,7 +523,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
             if (!CoinControlDialog::fSubtractFeeFromAmount)
                 nChange -= nPayFee;
 
-//ppcTODO maybe add this?:
+//trboTODO maybe add this?:
 //            // if sub-cent change is required, the fee must be raised to at least unit's min fee
 //            // or until nChange becomes zero
 //            // NOTE: this depends on the exact behaviour of GetMinFee
@@ -534,7 +534,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
 //                nPayFee += nMoveToFee;
 //            }
 
-            // ppcoin: sub-cent change is moved to fee
+            // trbooin: sub-cent change is moved to fee
             if (nChange > 0 && nChange < MIN_CHANGE)
             {
                 nPayFee += nChange;
@@ -546,7 +546,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
             if (nChange == 0 && !CoinControlDialog::fSubtractFeeFromAmount)
                 nBytes -= 34;
         }
-//ppcTODO maybe add this?:
+//trboTODO maybe add this?:
 //            // Fee
 //            int64 nFee;
 //

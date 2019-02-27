@@ -64,7 +64,7 @@ QSpinBox, QDoubleSpinBox   {
     padding: 0px;
 }
 
-/* Up and down values eg. PPC units on send */
+/* Up and down values eg. TRBO units on send */
 QSpinBox::up-button, QDoubleSpinBox::up-button   {
     subcontrol-origin: border;
     subcontrol-position: top right;

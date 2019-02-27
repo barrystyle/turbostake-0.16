@@ -1,2 +1,2 @@
-usr/local/bin/peercoind usr/bin
-usr/local/bin/peercoin-cli usr/bin
+usr/local/bin/turbostaked usr/bin
+usr/local/bin/turbostake-cli usr/bin

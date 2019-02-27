@@ -13,7 +13,7 @@
 #include <bignum.h>
 
 
-// peercoin: find last block index up to pindex
+// turbostake: find last block index up to pindex
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfStake)
 {
     while (pindex && pindex->pprev && (pindex->IsProofOfStake() != fProofOfStake))
@@ -35,8 +35,8 @@ unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfS
 
     int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
 
-    // peercoin: target change every block
-    // peercoin: retarget with exponential moving toward target spacing
+    // turbostake: target change every block
+    // turbostake: retarget with exponential moving toward target spacing
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     int64_t nTargetSpacing = fProofOfStake? params.nStakeTargetSpacing : std::min(params.nTargetSpacingWorkMax, params.nStakeTargetSpacing * (1 + pindexLast->nHeight - pindexPrev->nHeight));

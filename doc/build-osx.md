@@ -40,17 +40,17 @@ from the root of the repository.
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-Build Peercoin Core
+Build TurboStake Core
 ------------------------
 
-1. Clone the peercoin source code and cd into `peercoin`
+1. Clone the turbostake source code and cd into `turbostake`
 
-        git clone https://github.com/peercoin/peercoin.git
-        cd peercoin
+        git clone https://github.com/turbostake/turbostake.git
+        cd turbostake
 
-2.  Build peercoin-core:
+2.  Build turbostake-core:
 
-    Configure and build the headless peercoin binaries as well as the GUI (if Qt is found).
+    Configure and build the headless turbostake binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -69,37 +69,37 @@ Build Peercoin Core
 Running
 -------
 
-Peercoin Core is now available at `./src/peercoind`
+TurboStake Core is now available at `./src/turbostaked`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=peercoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Peercoin/peercoin.conf"
+    echo -e "rpcuser=turbostakerpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/TurboStake/turbostake.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/Peercoin/peercoin.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/TurboStake/turbostake.conf"
 
-The first time you run peercoind, it will start downloading the blockchain. This process could take several hours.
+The first time you run turbostaked, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/Peercoin/debug.log
+    tail -f $HOME/Library/Application\ Support/TurboStake/debug.log
 
 Other commands:
 -------
 
-    ./src/peercoind -daemon # Starts the peercoin daemon.
-    ./src/peercoin-cli --help # Outputs a list of command-line options.
-    ./src/peercoin-cli help # Outputs a list of RPC commands when the daemon is running.
+    ./src/turbostaked -daemon # Starts the turbostake daemon.
+    ./src/turbostake-cli --help # Outputs a list of command-line options.
+    ./src/turbostake-cli help # Outputs a list of RPC commands when the daemon is running.
 
 Using Qt Creator as IDE
 ------------------------
-You can use Qt Creator as an IDE, for peercoin development.
+You can use Qt Creator as an IDE, for turbostake development.
 Download and install the community edition of [Qt Creator](https://www.qt.io/download/).
 Uncheck everything except Qt Creator during the installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
 2. Do a proper ./configure --enable-debug
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "peercoin-qt" as project name, enter src/qt as location
+4. Enter "turbostake-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."

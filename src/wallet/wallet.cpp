@@ -49,7 +49,7 @@ const uint32_t BIP32_HARDENED_KEY_LIMIT = 0x80000000;
 
 const uint256 CMerkleTx::ABANDON_HASH(uint256S("0000000000000000000000000000000000000000000000000000000000000001"));
 
-// peercoin: optional setting to unlock wallet for block minting only;
+// turbostake: optional setting to unlock wallet for block minting only;
 //         serves to disable the trivial sendmoney when OS account compromised
 bool fWalletUnlockMintOnly = false;
 
@@ -1467,7 +1467,7 @@ int64_t CWalletTx::GetTxTime() const
 //    int64_t n = nTimeSmart;
 //    return n ? n : nTimeReceived;
 
-    // peercoin: we still have the timestamp, so use it to avoid confusion
+    // turbostake: we still have the timestamp, so use it to avoid confusion
     return tx->nTime;
 }
 
@@ -2021,7 +2021,7 @@ CAmount CWallet::GetBalance() const
     return nTotal;
 }
 
-// peercoin: total coins staked (non-spendable until maturity)
+// turbostake: total coins staked (non-spendable until maturity)
 CAmount CWallet::GetStake() const
 {
     CAmount nTotal = 0;
@@ -2185,7 +2185,7 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
                 continue;
 
             if (nSpendTime > 0 && pcoin->tx->nTime > nSpendTime)
-                continue;  // peercoin: timestamp must not exceed spend time
+                continue;  // turbostake: timestamp must not exceed spend time
 
             if ((pcoin->IsCoinBase() || pcoin->IsCoinStake()) && pcoin->GetBlocksToMaturity() > 0)
                 continue;
@@ -2698,7 +2698,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
     wtxNew.fTimeReceivedIsTxTime = true;
     wtxNew.BindWallet(this);
     CMutableTransaction txNew;
-    txNew.nTime = wtxNew.tx->nTime;  // peercoin: set time
+    txNew.nTime = wtxNew.tx->nTime;  // turbostake: set time
 
     // Discourage fee sniping.
     //
@@ -2822,7 +2822,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 
                 CAmount nChange = nValueIn - nValueToSelect;
 
-//ppcTODO: this code was in 0.7:
+//trboTODO: this code was in 0.7:
 //                  CAmount nMinFeeBase = (fNewFees ? MIN_TX_FEE : MIN_TX_FEE_PREV7);
 //                // The following if statement should be removed once enough miners
 //                // have upgraded to the 0.9 GetMinFee() rules. Until then, this avoids
@@ -2835,7 +2835,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 //                    nFeeRet += nMoveToFee;
 //                }
 
-                // peercoin: sub-cent change is moved to fee
+                // turbostake: sub-cent change is moved to fee
                 if (nChange > 0 && nChange < MIN_TXOUT_AMOUNT)
                 {
                     nFeeRet += nChange;
@@ -2887,7 +2887,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                     vin.scriptWitness.SetNull();
                 }
 
-//ppcTODO: this code was in 0.7, but was refactored by b33d1f5ee512da5719b793b3867f75f1eea5cf52:
+//trboTODO: this code was in 0.7, but was refactored by b33d1f5ee512da5719b793b3867f75f1eea5cf52:
 //                int64 nPayFee;
 //                if (fNewFees)
 //                    nPayFee = (nBytes < 100) ? MIN_TX_FEE : (int64)(nBytes * (nTransactionFee / 1000));
@@ -2909,7 +2909,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                     if (nChangePosInOut == -1 && nSubtractFeeFromAmount == 0 && pick_new_inputs) {
                         unsigned int tx_size_with_change = nBytes + change_prototype_size + 2; // Add 2 as a buffer in case increasing # of outputs changes compact size
                         CAmount fee_needed_with_change = GetMinFee(tx_size_with_change, txNew.nTime);
-                        CAmount minimum_value_for_change = MIN_TXOUT_AMOUNT;  //ppcTODO - is this correct?
+                        CAmount minimum_value_for_change = MIN_TXOUT_AMOUNT;  //trboTODO - is this correct?
                         if (nFeeRet >= fee_needed_with_change + minimum_value_for_change) {
                             pick_new_inputs = false;
                             nFeeRet = fee_needed_with_change;
@@ -4255,8 +4255,8 @@ CTxDestination CWallet::AddAndGetDestinationForScript(const CScript& script, Out
 }
 
 
-// peercoin: create coin stake transaction
-//ppcTODO: replace int64_t with CAmount where it deals with peercoin amounts.
+// turbostake: create coin stake transaction
+//trboTODO: replace int64_t with CAmount where it deals with turbostake amounts.
 typedef std::vector<unsigned char> valtype;
 bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew)
 {

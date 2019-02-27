@@ -92,7 +92,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("peercoin", psz).toStdString();
+    return QCoreApplication::translate("turbostake", psz).toStdString();
 }
 
 static QString GetLangTerritory()

@@ -624,7 +624,7 @@ UniValue setnetworkactive(const JSONRPCRequest& request)
     return g_connman->GetNetworkActive();
 }
 
-// peercoin: send alert.  
+// turbostake: send alert.  
 // There is a known deadlock situation with ThreadMessageHandler
 // ThreadMessageHandler: holds cs_vSend and acquiring cs_main in SendMessages()
 // ThreadRPCServer: holds cs_main and acquiring cs_vSend in alert.RelayTo()/PushMessage()/BeginMessage()
@@ -688,7 +688,7 @@ UniValue setnetworkactive(const JSONRPCRequest& request)
 //}
 
 // RPC commands related to sync checkpoints
-// get information of sync-checkpoint (first introduced in ppcoin)
+// get information of sync-checkpoint (first introduced in trbooin)
 UniValue getcheckpoint(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 0)
@@ -780,7 +780,7 @@ static const CRPCCommand commands[] =
     { "network",            "clearbanned",            &clearbanned,            {} },
     { "network",            "setnetworkactive",       &setnetworkactive,       {"state"} },
 
-    // peercoin:
+    // turbostake:
     { "network",            "getcheckpoint",          &getcheckpoint,          {} },
     { "network",            "sendcheckpoint",         &sendcheckpoint,         {} },
     { "network",            "enforcecheckpoint",      &enforcecheckpoint,      {} },

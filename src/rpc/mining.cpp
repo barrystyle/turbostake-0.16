@@ -54,7 +54,7 @@ UniValue GetNetworkHashPS(int lookup, int height) {
     if (pb == nullptr || !pb->nHeight)
         return 0;
 
-    //ppcTODO - redo this to fit peercoin
+    //trboTODO - redo this to fit turbostake
     // If lookup is -1, then use blocks since last difficulty change.
 //    if (lookup <= 0)
 //        lookup = pb->nHeight % Params().GetConsensus().DifficultyAdjustmentInterval() + 1;
@@ -105,7 +105,7 @@ UniValue getnetworkhashps(const JSONRPCRequest& request)
     return GetNetworkHashPS(!request.params[0].isNull() ? request.params[0].get_int() : 120, !request.params[1].isNull() ? request.params[1].get_int() : -1);
 }
 
-// peercoin: get network Gh/s estimate
+// turbostake: get network Gh/s estimate
 UniValue getnetworkghps(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 0)
@@ -190,7 +190,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             "\nMine blocks immediately to a specified address (before the RPC call returns)\n"
             "\nArguments:\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
-            "2. address      (string, required) The address to send the newly generated peercoin to.\n"
+            "2. address      (string, required) The address to send the newly generated turbostake to.\n"
             "3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
             "\nResult:\n"
             "[ blockhashes ]     (array) hashes of blocks generated\n"
@@ -232,7 +232,7 @@ UniValue getmininginfo(const JSONRPCRequest& request)
             "  \"pooledtx\": n              (numeric) The size of the mempool\n"
             "  \"chain\": \"xxxx\",           (string) current network name as defined in BIP70 (main, test, regtest)\n"
             "  \"warnings\": \"...\"          (string) any network and blockchain warnings\n"
-            "  \"errors\": \"...\"            (string) DEPRECATED. Same as warnings. Only shown when peercoind is started with -deprecatedrpc=getmininginfo\n"
+            "  \"errors\": \"...\"            (string) DEPRECATED. Same as warnings. Only shown when turbostaked is started with -deprecatedrpc=getmininginfo\n"
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getmininginfo", "")
@@ -465,10 +465,10 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
 
     if (g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0)
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Peercoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "TurboStake is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Peercoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "TurboStake is downloading blocks...");
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -724,12 +724,12 @@ UniValue submitblock(const JSONRPCRequest& request)
         }
     }
 
-    // peercoin: check block before attempting to sign it
+    // turbostake: check block before attempting to sign it
     CValidationState state;
     if (!CheckBlock(block, state, Params().GetConsensus(), true,  true))
         throw JSONRPCError(-100, "Block failed CheckBlock() function.");
 
-    // peercoin: sign block
+    // turbostake: sign block
     if (!SignBlock(block, *pwallet))
         throw JSONRPCError(-100, "Unable to sign block, wallet locked?");
 

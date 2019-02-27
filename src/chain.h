@@ -221,13 +221,13 @@ public:
     //! (memory only) Maximum nTime in the chain up to and including this block.
     unsigned int nTimeMax;
 
-// peercoin
-    // peercoin: money supply related block index fields
+// turbostake
+    // turbostake: money supply related block index fields
     int64_t nMint;
     int64_t nMoneySupply;
 
-    // peercoin: proof-of-stake related block index fields
-    unsigned int nFlags;  // peercoin: block index flags
+    // turbostake: proof-of-stake related block index fields
+    unsigned int nFlags;  // turbostake: block index flags
     enum
     {
         BLOCK_PROOF_OF_STAKE = (1 << 0), // is proof-of-stake block
@@ -279,7 +279,7 @@ public:
         if (fGeneratedStakeModifier)
             nFlags |= BLOCK_STAKE_MODIFIER;
     }
-// peercoin end
+// turbostake end
 
     void SetNull()
     {
@@ -303,7 +303,7 @@ public:
         nBits          = 0;
         nNonce         = 0;
 
-        // peercoin:
+        // turbostake:
         nMint = 0;
         nMoneySupply = 0;
         nFlags = 0;

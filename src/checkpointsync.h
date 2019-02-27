@@ -1,8 +1,8 @@
-// Copyright (c) 2012-2019 The Peercoin developers
+// Copyright (c) 2012-2019 The TurboStake developers
 // Distributed under conditional MIT/X11 open source software license
 // see the accompanying file COPYING
-#ifndef PPCOIN_CHECKPOINTSYNC_H
-#define  PPCOIN_CHECKPOINTSYNC_H
+#ifndef TRBOOIN_CHECKPOINTSYNC_H
+#define  TRBOOIN_CHECKPOINTSYNC_H
 
 #define CHECKPOINT_MAX_SPAN (60 * 60 * 4) // max 4 hours before latest block
 
@@ -32,7 +32,7 @@ bool SetCheckpointPrivKey(std::string strPrivKey);
 bool SendSyncCheckpoint(uint256 hashCheckpoint);
 bool IsSyncCheckpointTooOld(unsigned int nSeconds);
 
-// Synchronized checkpoint (introduced first in ppcoin)
+// Synchronized checkpoint (introduced first in trbooin)
 class CUnsignedSyncCheckpoint
 {
 public:

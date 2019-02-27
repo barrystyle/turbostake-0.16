@@ -14,7 +14,7 @@
 #error Client version information missing: version is not defined by bitcoin-config.h or in any other way
 #endif
 
-#if !defined(PEERCOIN_VERSION_MAJOR) || !defined(PEERCOIN_VERSION_MINOR) || !defined(PEERCOIN_VERSION_REVISION) || !defined(PEERCOIN_VERSION_BUILD)
+#if !defined(TURBOSTAKE_VERSION_MAJOR) || !defined(TURBOSTAKE_VERSION_MINOR) || !defined(TURBOSTAKE_VERSION_REVISION) || !defined(TURBOSTAKE_VERSION_BUILD)
 #error Client version information missing: version is not defined by bitcoin-config.h or in any other way
 #endif
 
@@ -45,12 +45,12 @@ static const int CLIENT_VERSION =
                          +     100 * CLIENT_VERSION_REVISION
                          +       1 * CLIENT_VERSION_BUILD;
 
-// note: peercoin version is used for display purpose AND to accept alerts
-static const int PEERCOIN_VERSION =
-                           1000000 * PEERCOIN_VERSION_MAJOR
-                         +   10000 * PEERCOIN_VERSION_MINOR
-                         +     100 * PEERCOIN_VERSION_REVISION
-                         +       1 * PEERCOIN_VERSION_BUILD;
+// note: turbostake version is used for display purpose AND to accept alerts
+static const int TURBOSTAKE_VERSION =
+                           1000000 * TURBOSTAKE_VERSION_MAJOR
+                         +   10000 * TURBOSTAKE_VERSION_MINOR
+                         +     100 * TURBOSTAKE_VERSION_REVISION
+                         +       1 * TURBOSTAKE_VERSION_BUILD;
 
 extern const std::string CLIENT_NAME;
 extern const std::string CLIENT_BUILD;

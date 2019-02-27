@@ -96,7 +96,7 @@ void BlockAssembler::resetBlock()
     nFees = 0;
 }
 
-// peercoin: if pwallet != NULL it will attempt to create coinstake
+// turbostake: if pwallet != NULL it will attempt to create coinstake
 std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, bool fMineWitnessTx, CWallet* pwallet, bool* pfPoSCancel)
 {
     int64_t nTimeStart = GetTimeMicros();
@@ -126,7 +126,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     assert(pindexPrev != nullptr);
     nHeight = pindexPrev->nHeight + 1;
 
-    // peercoin: if coinstake available add coinstake tx
+    // turbostake: if coinstake available add coinstake tx
     static int64_t nLastCoinStakeSearchTime = GetAdjustedTime();  // only initialized at startup
 
     if (pwallet)  // attemp to find a coinstake
@@ -152,7 +152,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
             nLastCoinStakeSearchTime = nSearchTime;
         }
         if (*pfPoSCancel)
-            return nullptr; // peercoin: there is no point to continue if we failed to create coinstake
+            return nullptr; // turbostake: there is no point to continue if we failed to create coinstake
     }
     else
         pblock->nBits = GetNextTargetRequired(pindexPrev, false, chainparams.GetConsensus());
@@ -253,7 +253,7 @@ bool BlockAssembler::TestPackageTransactions(const CTxMemPool::setEntries& packa
         if (!fIncludeWitness && it->GetTx().HasWitness())
             return false;
 
-        // peercoin: timestamp limit
+        // turbostake: timestamp limit
         if (it->GetTx().nTime > GetAdjustedTime() || (pblock->IsProofOfStake() && it->GetTx().nTime > pblock->vtx[1]->nTime))
             return false;
     }
@@ -494,10 +494,10 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("PeercoinMiner: generated block is stale");
+            return error("TurboStakeMiner: generated block is stale");
     }
 
-    //ppcTODO - check if this is still needed
+    //trboTODO - check if this is still needed
     // Inform about the new block
     //GetMainSignals().BlockFound(pblock->GetHash());
 
@@ -512,7 +512,7 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
 void PoSMiner(CWallet *pwallet)
 {
     LogPrintf("CPUMiner started for proof-of-stake\n");
-    RenameThread("peercoin-stake-minter");
+    RenameThread("turbostake-stake-minter");
 
     unsigned int nExtraNonce = 0;
 
@@ -578,13 +578,13 @@ void PoSMiner(CWallet *pwallet)
                     continue;
                 }
                 strMintWarning = strMintBlockMessage;
-                LogPrintf("Error in PeercoinMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+                LogPrintf("Error in TurboStakeMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
                 return;
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            // peercoin: if proof-of-stake block found then process block
+            // turbostake: if proof-of-stake block found then process block
             if (pblock->IsProofOfStake())
             {
                 if (!SignBlock(*pblock, *pwallet))
@@ -604,18 +604,18 @@ void PoSMiner(CWallet *pwallet)
     }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("PeercoinMiner terminated\n");
+        LogPrintf("TurboStakeMiner terminated\n");
     return;
         // throw;
     }
     catch (const std::runtime_error &e)
     {
-        LogPrintf("PeercoinMiner runtime error: %s\n", e.what());
+        LogPrintf("TurboStakeMiner runtime error: %s\n", e.what());
         return;
     }
 }
 
-// peercoin: stake minter thread
+// turbostake: stake minter thread
 void static ThreadStakeMinter(void* parg)
 {
     LogPrintf("ThreadStakeMinter started\n");
@@ -632,10 +632,10 @@ void static ThreadStakeMinter(void* parg)
     LogPrintf("ThreadStakeMinter exiting\n");
 }
 
-// peercoin: stake minter
+// turbostake: stake minter
 void MintStake(boost::thread_group& threadGroup)
 {
-    // peercoin: mint proof-of-stake blocks in the background
+    // turbostake: mint proof-of-stake blocks in the background
     if (!vpwallets.empty())
         threadGroup.create_thread(boost::bind(&ThreadStakeMinter, vpwallets[0]));
 }

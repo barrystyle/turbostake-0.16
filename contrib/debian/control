@@ -1,4 +1,4 @@
-Source: peercoin
+Source: turbostake
 Section: utils
 Priority: optional
 Maintainer: Peerchemist <peerchemist@protonmail.ch>
@@ -25,38 +25,38 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://www.peercoin.net/
-Vcs-Git: git://github.com/peercoin/peercoin.git
-Vcs-Browser: https://github.com/peercoin/peercoin
+Homepage: https://www.turbostake.net/
+Vcs-Git: git://github.com/turbostake/turbostake.git
+Vcs-Browser: https://github.com/turbostake/turbostake
 
-Package: peercoind
+Package: turbostaked
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- Peercoin is a crypto-currency project forked from Bitcoin with aim to achieve
+ TurboStake is a crypto-currency project forked from Bitcoin with aim to achieve
  energy-efficiency and keep as much as possible the original Bitcoin's
  preferable properties.
  .
- This package provides the daemon, peercoind, and the CLI tool
- peercoin-cli to interact with the daemon.
+ This package provides the daemon, turbostaked, and the CLI tool
+ turbostake-cli to interact with the daemon.
 
-Package: peercoin-qt
+Package: turbostake-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- Peercoin is a crypto-currency project forked from Bitcoin with aim to achieve
+ TurboStake is a crypto-currency project forked from Bitcoin with aim to achieve
  energy-efficiency and keep as much as possible the original Bitcoin's
  preferable properties.
  .
- This package provides Peercoin-Qt, a GUI client for Peercoin based on Qt.
+ This package provides TurboStake-Qt, a GUI client for TurboStake based on Qt.
 
-Package: peercoin-tx
+Package: turbostake-tx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer digital currency - standalone transaction tool
- Peercoin is a crypto-currency project forked from Bitcoin with aim to achieve
+ TurboStake is a crypto-currency project forked from Bitcoin with aim to achieve
  energy-efficiency and keep as much as possible the original Bitcoin's
  preferable properties.
- This package provides peercoin-tx, a command-line transaction creation
- tool which can be used without a peercoin daemon.  Some means of
+ This package provides turbostake-tx, a command-line transaction creation
+ tool which can be used without a turbostake daemon.  Some means of
  exchanging minimal transaction data with peers is still required.
