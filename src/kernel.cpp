@@ -373,7 +373,6 @@ static bool GetKernelStakeModifier(CBlockIndex* pindexPrev, uint256 hashBlockFro
 //
 bool CheckStakeKernelHash(unsigned int nBits, CBlockIndex* pindexPrev, const CBlockHeader& blockFrom, unsigned int nTxPrevOffset, const CTransactionRef& txPrev, const COutPoint& prevout, unsigned int nTimeTx, uint256& hashProofOfStake, bool fPrintProofOfStake)
 {
-    LogPrintf("CheckStakeKernelHash nBits = %08x\n", nBits);
     const Consensus::Params& params = Params().GetConsensus();
     if (nTimeTx < txPrev->nTime)  // Transaction timestamp violation
         return error("CheckStakeKernelHash() : nTime violation");
@@ -476,7 +475,6 @@ bool CheckProofOfStake(CValidationState &state, CBlockIndex* pindexPrev, const C
         if (txPrev->GetHash() != txin.prevout.hash)
             return error("%s() : txid mismatch in CheckProofOfStake()", __PRETTY_FUNCTION__);
     }
-
 
     if (!CheckStakeKernelHash(nBits, pindexPrev, header, postx.nTxOffset + CBlockHeader::NORMAL_SERIALIZE_SIZE, txPrev, txin.prevout, tx->nTime, hashProofOfStake, true))
         return state.DoS(1, error("CheckProofOfStake() : INFO: check kernel failed on coinstake %s, hashProof=%s", tx->GetHash().ToString(), hashProofOfStake.ToString()));

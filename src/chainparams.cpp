@@ -82,7 +82,7 @@ public:
         consensus.nTargetSpacingWorkMax = 12 * consensus.nStakeTargetSpacing;       // https://github.com/TurboStake/TurboStake/blob/master/src/main.cpp L980
         consensus.nPowTargetSpacing = consensus.nStakeTargetSpacing;
         consensus.nStakeMinAge = 60 * 60 * 24 * 2;                                  // https://github.com/TurboStake/TurboStake/blob/master/src/main.h L45
-        consensus.nStakeMaxAge = 60 * 60 * 24 * 90;                                 // https://github.com/TurboStake/TurboStake/blob/master/src/main.h L46
+        consensus.nStakeMaxAge = 60 * 60 * 24 * 365 * 65;                           // https://github.com/TurboStake/TurboStake/blob/master/src/main.h L46
         consensus.nModifierInterval = 3 * 60 * 60;                                  // https://github.com/TurboStake/TurboStake/blob/master/src/kernel.h L10
         consensus.nCoinbaseMaturity = 100;                                          // https://github.com/TurboStake/TurboStake/blob/master/src/main.h L41
 
