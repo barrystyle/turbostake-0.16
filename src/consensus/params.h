@@ -54,7 +54,7 @@ struct Params {
     int64_t nTargetTimespan;
     int64_t nStakeMinAge;
     int64_t nStakeMaxAge;
-    int64_t nModifierInterval;
+    unsigned int nModifierInterval;
     int nCoinbaseMaturity;  // Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
 };
 } // namespace Consensus
