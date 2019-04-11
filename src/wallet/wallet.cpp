@@ -3933,6 +3933,7 @@ CWallet* CWallet::CreateWalletFromFile(const std::string walletFile)
         walletInstance->SetMaxVersion(nMaxVersion);
     }
 
+#if 0
     if (fFirstRun)
     {
         // ensure this wallet.dat can only be opened by clients supporting HD with chain split and expects no default key
@@ -3966,6 +3967,7 @@ CWallet* CWallet::CreateWalletFromFile(const std::string walletFile)
             return nullptr;
         }
     }
+#endif
 
     LogPrintf(" wallet      %15dms\n", GetTimeMillis() - nStart);
 
