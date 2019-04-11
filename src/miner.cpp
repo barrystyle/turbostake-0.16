@@ -557,10 +557,9 @@ void PoSMiner(CWallet *pwallet)
                 while(g_connman == nullptr || g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0 || IsInitialBlockDownload())
                     MilliSleep(5 * 60 * 1000);
             }
-            while (GuessVerificationProgress(Params().TxData(), chainActive.Tip()) < 0.996)
+            while (IsInitialBlockDownload())
             {
-                LogPrintf("Minter thread sleeps while sync at %f\n", GuessVerificationProgress(Params().TxData(), chainActive.Tip()));
-                strMintWarning = strMintSyncMessage;
+                LogPrintf("Minter thread sleeps while in IBD\n");
                 MilliSleep(10000);
             }
 
