@@ -1219,27 +1219,28 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, const CCoinsVi
                 if (pvChecks) {
                     pvChecks->push_back(CScriptCheck());
                     check.swap(pvChecks->back());
-                } else if (!check()) {
-                    if (flags & STANDARD_NOT_MANDATORY_VERIFY_FLAGS) {
-                        // Check whether the failure was caused by a
-                        // non-mandatory script verification check, such as
-                        // non-standard DER encodings or non-null dummy
-                        // arguments; if so, don't trigger DoS protection to
-                        // avoid splitting the network between upgraded and
-                        // non-upgraded nodes.
-                        CScriptCheck check2(coin.out, tx, i,
-                                flags & ~STANDARD_NOT_MANDATORY_VERIFY_FLAGS, cacheSigStore, &txdata);
-                        if (check2())
-                            return state.Invalid(false, REJECT_NONSTANDARD, strprintf("non-mandatory-script-verify-flag (%s)", ScriptErrorString(check.GetScriptError())));
-                    }
-                    // Failures of other flags indicate a transaction that is
-                    // invalid in new blocks, e.g. an invalid P2SH. We DoS ban
-                    // such nodes as they are not following the protocol. That
-                    // said during an upgrade careful thought should be taken
-                    // as to the correct behavior - we may want to continue
-                    // peering with non-upgraded nodes even after soft-fork
-                    // super-majority signaling has occurred.
-                    return state.DoS(100,false, REJECT_INVALID, strprintf("mandatory-script-verify-flag-failed (%s)", ScriptErrorString(check.GetScriptError())));
+//              } else if (!check()) {
+//                  if (flags & STANDARD_NOT_MANDATORY_VERIFY_FLAGS) {
+//                      // Check whether the failure was caused by a
+//                      // non-mandatory script verification check, such as
+//                      // non-standard DER encodings or non-null dummy
+//                      // arguments; if so, don't trigger DoS protection to
+//                      // avoid splitting the network between upgraded and
+//                      // non-upgraded nodes.
+//                      CScriptCheck check2(coin.out, tx, i,
+//                              flags & ~STANDARD_NOT_MANDATORY_VERIFY_FLAGS, cacheSigStore, &txdata);
+//                      if (check2())
+//                          return state.Invalid(false, REJECT_NONSTANDARD, strprintf("non-mandatory-script-verify-flag (%s)", ScriptErrorString(check.GetScriptError())));
+//                  }
+//                  // Failures of other flags indicate a transaction that is
+//                  // invalid in new blocks, e.g. an invalid P2SH. We DoS ban
+//                  // such nodes as they are not following the protocol. That
+//                  // said during an upgrade careful thought should be taken
+//                  // as to the correct behavior - we may want to continue
+//                  // peering with non-upgraded nodes even after soft-fork
+//                  // super-majority signaling has occurred.
+//                  return state.DoS(100,false, REJECT_INVALID, strprintf("mandatory-script-verify-flag-failed (%s)", ScriptErrorString(check.GetScriptError())));
+//              }
                 }
             }
 
