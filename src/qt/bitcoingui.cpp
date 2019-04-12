@@ -31,6 +31,7 @@
 #include <init.h>
 #include <ui_interface.h>
 #include <util.h>
+#include <miner.h>
 
 #include <wallet/wallet.h>
 
@@ -206,6 +207,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     frameBlocksLayout->setContentsMargins(3,0,3,0);
     frameBlocksLayout->setSpacing(3);
     unitDisplayControl = new UnitDisplayStatusBarControl(platformStyle);
+    labelStakingIcon = new QLabel();
     labelWalletEncryptionIcon = new QLabel();
     labelWalletHDStatusIcon = new QLabel();
     connectionsControl = new GUIUtil::ClickableLabel();
@@ -215,6 +217,8 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         frameBlocksLayout->addStretch();
         frameBlocksLayout->addWidget(unitDisplayControl);
         frameBlocksLayout->addStretch();
+        frameBlocksLayout->addWidget(labelStakingIcon);
+        frameBlocksLayout->addStretch();
         frameBlocksLayout->addWidget(labelWalletEncryptionIcon);
         frameBlocksLayout->addWidget(labelWalletHDStatusIcon);
     }
@@ -222,6 +226,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     frameBlocksLayout->addWidget(connectionsControl);
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelBlocksIcon);
+    frameBlocksLayout->addWidget(labelStakingIcon);
     frameBlocksLayout->addStretch();
 
     // Progress bar and label for blocks download
@@ -255,6 +260,11 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         connect(progressBar, SIGNAL(clicked(QPoint)), this, SLOT(showModalOverlay()));
     }
 #endif
+
+    QTimer* timerStakingIcon = new QTimer(labelStakingIcon);
+    connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(setStakingStatus()));
+    timerStakingIcon->start(10000);
+    setStakingStatus();
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -1086,6 +1096,19 @@ void BitcoinGUI::setHDStatus(int hdEnabled)
 
     // eventually disable the QLabel to set its opacity to 50%
     labelWalletHDStatusIcon->setEnabled(hdEnabled);
+}
+
+void BitcoinGUI::setStakingStatus()
+{
+    if (nLastCoinStakeSearchInterval) {
+        labelStakingIcon->show();
+        labelStakingIcon->setPixmap(QIcon(QString(":/icons/staking_active")).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelStakingIcon->setToolTip(tr("Staking is active\n"));
+    } else {
+        labelStakingIcon->show();
+        labelStakingIcon->setPixmap(QIcon(QString(":/icons/staking_inactive")).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelStakingIcon->setToolTip(tr("Staking is inactive\n"));
+    }
 }
 
 void BitcoinGUI::setEncryptionStatus(int status)

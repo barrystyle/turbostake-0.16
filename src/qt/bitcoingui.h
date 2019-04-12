@@ -88,6 +88,7 @@ private:
     QLabel *connectionsControl;
     QLabel *labelBlocksIcon;
     QLabel *progressBarLabel;
+    QLabel *labelStakingIcon;
     QProgressBar *progressBar;
     QProgressDialog *progressDialog;
 
@@ -210,6 +211,7 @@ private Q_SLOTS:
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
 
+    void setStakingStatus();
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
