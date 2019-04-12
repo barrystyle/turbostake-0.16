@@ -41,7 +41,7 @@ public:
         QRect mainRect = option.rect;
         QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
         int xspace = DECORATION_SIZE + 8;
-        int ypad = 12;
+        int ypad = 6;
         int halfheight = (mainRect.height() - 2*ypad)/2;
         QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
         QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
@@ -53,12 +53,14 @@ public:
         qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
         bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
         QVariant value = index.data(Qt::ForegroundRole);
-        QColor foreground = QColor(0x4b, 0x4b, 0x4b);
-        QFont font = QFont();
-        font.setPixelSize(20);
+        QColor foreground = option.palette.color(QPalette::Text);
+        if(value.canConvert<QBrush>())
+        {
+            QBrush brush = qvariant_cast<QBrush>(value);
+            foreground = brush.color();
+        }
 
         painter->setPen(foreground);
-        painter->setFont(font);
         QRect boundingRect;
         painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address, &boundingRect);
 
@@ -79,11 +81,9 @@ public:
         }
         else
         {
-            foreground = COLOR_POSITIVE;
+            foreground = option.palette.color(QPalette::Text);
         }
         painter->setPen(foreground);
-        font.setPixelSize(14);
-        painter->setFont(font);
         QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, BitcoinUnits::separatorAlways);
         if(!confirmed)
         {
@@ -91,7 +91,7 @@ public:
         }
         painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
 
-        painter->setPen(COLOR_POSITIVE);
+        painter->setPen(option.palette.color(QPalette::Text));
         painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
         painter->restore();
