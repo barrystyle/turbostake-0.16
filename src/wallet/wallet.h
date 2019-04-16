@@ -90,7 +90,7 @@ enum OutputType : int
     OUTPUT_TYPE_P2SH_SEGWIT,
     OUTPUT_TYPE_BECH32,
 
-    OUTPUT_TYPE_DEFAULT = OUTPUT_TYPE_P2SH_SEGWIT
+    OUTPUT_TYPE_DEFAULT = OUTPUT_TYPE_LEGACY
 };
 
 extern OutputType g_address_type;
@@ -1226,7 +1226,7 @@ bool CWallet::DummySignTx(CMutableTransaction &txNew, const ContainerType &coins
     return true;
 }
 
-OutputType ParseOutputType(const std::string& str, OutputType default_type = OUTPUT_TYPE_DEFAULT);
+OutputType ParseOutputType(const std::string& str, OutputType default_type = OUTPUT_TYPE_LEGACY);
 const std::string& FormatOutputType(OutputType type);
 
 /**
